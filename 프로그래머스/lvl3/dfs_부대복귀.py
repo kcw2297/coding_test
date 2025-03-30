@@ -1,3 +1,5 @@
+# 링크 => https://school.programmers.co.kr/learn/courses/30/lessons/132266
+
 from collections import deque, defaultdict
 
 def solution(n, roads, sources, destination):
@@ -31,3 +33,4 @@ def solution(n, roads, sources, destination):
     # [6] 각 source에서 destination까지의 최단거리 결과를 리스트로 반환
     # 도달 불가능한 경우에는 -1로 유지됨
     return [distance[source] for source in sources]
+
