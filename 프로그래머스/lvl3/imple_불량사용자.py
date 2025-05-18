@@ -38,3 +38,10 @@ def solution(user_id, banned_id):
             all_cases.add(frozenset(comb))
 
     return len(all_cases)
+
+
+
+"""
+First Trial [X]
+
+"""

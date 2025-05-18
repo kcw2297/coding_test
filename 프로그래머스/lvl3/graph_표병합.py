@@ -1,25 +1,31 @@
 # 링크 => https://school.programmers.co.kr/learn/courses/30/lessons/150366
 
 
-def solution(commands):
+def solution(commands: list):
     N = 50
     size = N * N
 
-    # DSU 초기화
-    parent = list(range(size))
-    members = {i: {i} for i in range(size)}
-    value_map = {}
+    parent = list(range(size)) # parent[i]: i번 셀의 상위(대표) 노드 인덱스
+    members = {i: {i} for i in range(size)} # r번 대표 노드가 관할하는 모든 셀 인덱스 집합
+    value_map = {} # r번 대표 노드가 관리하는 병합된 셀의 값
 
     def find(x):
+        """
+            Disjoint Set Union의 find은 "원소 X"가 어떤 집합에 속하는지 알려주는 대표 원소 반환
+        """
         if parent[x] != x:
             parent[x] = find(parent[x])
         return parent[x]
 
     def union(a, b):
+        """
+            원소 x가 속한 집합과 원소 y가 속한 집합을 하나로 합칩
+        """
         ra, rb = find(a), find(b)
         if ra == rb:
             return
-        # rb를 ra에 합치기
+        
+        # rb 소속 멤버들을 전부 ra로 합친다
         for m in members[rb]:
             parent[m] = ra
             members[ra].add(m)
@@ -35,12 +41,15 @@ def solution(commands):
     result = []
 
     for cmd in commands:
+        cmd: str
         parts = cmd.split()
         op = parts[0]
 
         if op == "UPDATE" and len(parts) == 4:
-            r, c = map(int, parts[1:3]); v = parts[3]
-            i = idx(r, c); ri = find(i)
+            r, c = map(int, parts[1:3])
+            v = parts[3]
+            i = idx(r, c)
+            ri = find(i)
             value_map[ri] = v
 
         elif op == "UPDATE" and len(parts) == 3:
@@ -60,25 +69,30 @@ def solution(commands):
             root0 = find(i0)
             old_val = value_map.get(root0)
 
-            # 1) 그룹 멤버 목록 복사
+            # 병합된 셀 이전 상태로 초기화
             group = members[root0].copy()
-            # 2) 기존 루트 키 제거
             members.pop(root0)
-            # 3) 각 멤버를 개별 루트로 복원
+            
             for m in group:
                 parent[m] = m
                 members[m] = {m}
-            # 4) 값 맵에서 옛 루트 삭제
+
             value_map.pop(root0, None)
             # 5) 선택 셀만 old_val 유지
             if old_val is not None:
                 value_map[i0] = old_val
 
-        else:  # PRINT
+        else:  
             r, c = map(int, parts[1:])
             i = idx(r, c); ri = find(i)
             result.append(value_map.get(ri, "EMPTY"))
 
     return result
 
+
+"""
+First Trial [X]
+
+DSU(Disjoin Set Union), Union-Find 자료구조로 서로소(partition) 집합들을 관리하면서 “같은 집합인지”를 판단하거나, 필요할 때 두 집합을 합치는 작업을 효율적으로 처리
+"""
 

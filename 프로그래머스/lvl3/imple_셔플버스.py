@@ -30,3 +30,10 @@ def solution(n, t, m, timetable):
     hh = last_possible // 60
     mm = last_possible % 60
     return f"{hh:02d}:{mm:02d}"
+
+
+
+"""
+First Trial [X]
+
+"""
