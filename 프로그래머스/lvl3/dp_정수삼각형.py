@@ -4,7 +4,7 @@
 from collections import defaultdict
 
 def solution(triangle):
-    # TODO: dp key로 (lvl, idx): val저장
+    # dp key로 (lvl, idx): val저장하여 참조
     dp = defaultdict(int)
     result = 0
     cur_lvl = 0
@@ -13,20 +13,16 @@ def solution(triangle):
         for node_idx in range(len(triangle_level)):
             node_value = triangle_level[node_idx]
 
-            # TODO: 현재 루트 레벨은 별도 처리
             if cur_lvl == 0:
                 result = node_value
                 dp[(cur_lvl, 0)] = node_value
                 continue
             
-            # TODO: 끝 좌, 끝 우 인 경우, 한개의 상위 노드 참조
-            # TODO: 끝 좌 => 인덱스 0
             if node_idx == 0:
                 parent_value = dp[(cur_lvl - 1, node_idx)]
                 dp[(cur_lvl, node_idx)] = parent_value + node_value
                 if parent_value + node_value > result:
                     result = parent_value + node_value
-            # TODO: 끝 우 => 자기 인덱스 - 1
             elif node_idx == len(triangle_level) - 1:
                 parent_value = dp[(cur_lvl - 1, node_idx - 1)]
                 dp[(cur_lvl, node_idx)] = parent_value + node_value
@@ -52,5 +48,11 @@ def solution(triangle):
 
 
 
+"""
+시간 복잡도: O(N)
+DP => 트리 Root 노드부터 순차적 순회
+    => 상위 노드의 value 값을 dp 저장, 이후 child node에서 parent node value 참조
 
+First Trial[X]
+"""
 

@@ -45,9 +45,12 @@ def solution(a, b, g, s, w, t):
     return answer
 
 
-solution(90, 500, [70,70,0], [0,0,500], [100,100,2], [4,8,1])
 
 
+"""
+시간 복잡도: O(logN)
 
+binary search => 탐색 범위 => 이 문제에서는 (시간)을 기준으로 최적의 시간값 도출
 
-
+First Trial[X]
+"""
