@@ -36,11 +36,10 @@ def solution(gems):
 
 """
 First Trial[X]
+
+시간 복잡도: O(100_000) => gems 최대 개수
+
 """
-
-
-
-
 
 
 

@@ -11,8 +11,7 @@ def solution(alp, cop, problems):
     alp = min(alp, max_alp)
     cop = min(cop, max_cop)
 
-    # TODO: 최대 경우에서 +1을 한 상태 및 인덱스를 고려해 +2 실행
-    # TODO: dp => 해당 상태까지 걸리는 최소 시간
+    # TODO: dp => 해당 상태까지 걸리는 최소 시간 (최대 경우에서 +1을 한 상태 및 인덱스를 고려해 +2 실행) 
     dp = [[float('inf')] * (max_cop + 2) for _ in range(max_alp + 2)]
 
     # TODO: 시작 상태 0시간
@@ -21,6 +20,7 @@ def solution(alp, cop, problems):
     # TODO: 가능한 모든 능력치 조합에 대해 순회, 모든 상태를 그리드 순회하면서 DP 값을 갱신합니다.
     for a in range(alp, max_alp + 1):
         for c in range(cop, max_cop + 1):
+            # TODO: 이전값에 1을 더한 것과, 문제를 풀어 도달한 시간 중 작은 값을 유지
             dp[a + 1][c] = min(dp[a + 1][c], dp[a][c] + 1)
             dp[a][c + 1] = min(dp[a][c + 1], dp[a][c] + 1)
 
@@ -37,6 +37,9 @@ def solution(alp, cop, problems):
 
 """
 First Trial [X]
+
+시간 복잡도: O(150 * 150 * 100)
+
 """
 
 
